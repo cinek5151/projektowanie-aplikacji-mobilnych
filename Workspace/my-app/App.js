@@ -6,6 +6,7 @@ import PizzaText from './components/Zad3/PizzaText';
 import FlexLayout from './components/Zad4/FlexLayout';
 import UserName from './components/Zad5/UserName';
 import UserSurname from './components/Zad5/UserSurname';
+import LayoutWithBlocks from './components/Zad6/LayoutWithBlocks';
 
 
 export default function App() {
@@ -22,6 +23,8 @@ export default function App() {
       <Text>Zad5</Text>
       <UserName name="Adrian" />
       <UserSurname surname="Kopczyński" />
+      <Text>Zad6</Text>
+      <LayoutWithBlocks />
       <StatusBar style="auto" />
     </View>
   
