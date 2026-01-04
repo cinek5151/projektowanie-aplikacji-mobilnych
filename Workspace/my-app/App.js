@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import DateDisplay from './components/Zad1/DateDisplay';
 import MapImage from './components/Zad2/MapImage';
+import PizzaText from './components/Zad3/PizzaText';
 
 export default function App() {
   return (
@@ -10,6 +11,8 @@ export default function App() {
       <DateDisplay />
       <Text>Zad2</Text>
       <MapImage />
+      <Text>Zad3</Text>
+      <PizzaText />
       <StatusBar style="auto" />
     </View>
   );
