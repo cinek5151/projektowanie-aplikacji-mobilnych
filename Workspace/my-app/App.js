@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import DateDisplay from './components/Zad1/DateDisplay';
 import MapImage from './components/Zad2/MapImage';
 import PizzaText from './components/Zad3/PizzaText';
@@ -8,9 +8,12 @@ import UserName from './components/Zad5/UserName';
 import UserSurname from './components/Zad5/UserSurname';
 import LayoutWithBlocks from './components/Zad6/LayoutWithBlocks';
 import InvitationCard from './components/Zad7/InvitationCard';
+import DataTimer from './components/Zad8/DataTimer';
+
 
 export default function App() {
   return (
+    <ScrollView>
     <View style={styles.container}>
 
       <Text>Zad1</Text>
@@ -40,10 +43,12 @@ export default function App() {
           dressCode="Brak"
         />
 
+      <Text>Zad8</Text>
+      <DataTimer currentTime={new Date().toLocaleString()} />
 
       <StatusBar style="auto" />
     </View>
-  
+  </ScrollView>
   );
 }
 
