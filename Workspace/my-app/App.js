@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import DateDisplay from './components/Zad1/DateDisplay';
 import MapImage from './components/Zad2/MapImage';
 import PizzaText from './components/Zad3/PizzaText';
+import FlexLayout from './components/Zad4/FlexLayout';
 
 export default function App() {
   return (
@@ -13,6 +14,8 @@ export default function App() {
       <MapImage />
       <Text>Zad3</Text>
       <PizzaText />
+      <Text>Zad4</Text>
+      <FlexLayout />
       <StatusBar style="auto" />
     </View>
   );
