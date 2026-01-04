@@ -4,6 +4,9 @@ import DateDisplay from './components/Zad1/DateDisplay';
 import MapImage from './components/Zad2/MapImage';
 import PizzaText from './components/Zad3/PizzaText';
 import FlexLayout from './components/Zad4/FlexLayout';
+import UserName from './components/Zad5/UserName';
+import UserSurname from './components/Zad5/UserSurname';
+
 
 export default function App() {
   return (
@@ -16,8 +19,12 @@ export default function App() {
       <PizzaText />
       <Text>Zad4</Text>
       <FlexLayout />
+      <Text>Zad5</Text>
+      <UserName name="Adrian" />
+      <UserSurname surname="Kopczyński" />
       <StatusBar style="auto" />
     </View>
+  
   );
 }
 
