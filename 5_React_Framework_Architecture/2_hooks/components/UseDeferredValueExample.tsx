@@ -1,19 +1,23 @@
-import React, { useDeferredValue, useEffect, useState, useTransition } from "react";
-import { 
-  View, 
-  Text, 
-  TextInput, 
-  StyleSheet, 
-  ScrollView, 
-  ActivityIndicator 
+import React, {
+  useDeferredValue,
+  useState,
+  useTransition,
+} from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
 } from "react-native";
 
 const UseDeferredValueExample: React.FC = () => {
   const [input, setInput] = useState<number>(100);
-
+  const deferredInput = useDeferredValue(input);
+  const [isPending, startTransition] = useTransition();
 
   const generateElements = (number: number) => {
-    // This is an expensive operation that creates many elements
     const elements = [];
     for (let i = 0; i < number; i++) {
       elements.push(
@@ -28,25 +32,25 @@ const UseDeferredValueExample: React.FC = () => {
     return elements;
   };
 
-
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>UseDeferredValue & UseTransition</Text>
-      
+      <Text style={styles.title}>UseDeferredValue & useTransition</Text>
+
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Number of items to generate:</Text>
         <TextInput
           style={styles.input}
           value={input.toString()}
+          keyboardType="numeric"
+          placeholder="Enter a number (0-1000000)"
           onChangeText={(text) => {
             const number = parseInt(text) || 0;
             if (number >= 0 && number <= 1000000) {
-              setInput(number);
+              startTransition(() => {
+                setInput(number);
+              });
             }
           }}
-          keyboardType="numeric"
-          placeholder="Enter a number (0-1000)"
         />
       </View>
 
@@ -55,23 +59,33 @@ const UseDeferredValueExample: React.FC = () => {
           Input value: {input}
         </Text>
         <Text style={styles.statusText}>
-          Deferred value: {input}
+          Deferred value: {deferredInput}
         </Text>
 
-
+        {isPending && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator />
+            <Text style={styles.loadingText}>
+              Updating list…
+            </Text>
+          </View>
+        )}
       </View>
 
       <Text style={styles.sectionTitle}>
-        Generated List (using useDeferredValue):
+        Generated List (deferred):
       </Text>
-      
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={true}>
-        {generateElements(input)}
+
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator
+      >
+        {generateElements(deferredInput)}
       </ScrollView>
 
       <Text style={styles.explanation}>
-        Try typing quickly in the input above. Notice how the input stays responsive 
-        while the list updates are deferred, preventing UI blocking.
+        Try typing quickly — the input stays responsive while
+        the list rendering is deferred.
       </Text>
     </View>
   );
