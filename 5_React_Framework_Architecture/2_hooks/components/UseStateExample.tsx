@@ -3,20 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 const UseStateExample: React.FC = () => {
   const [color, setColor] = useState("#FF69B4"); // pink
-  const [counter, setCounter] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCounter((prev) => prev + 1);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   const handleChangeColor = () => {
-    const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-    const newColor = `#${randomColor}`;
-    setColor(newColor);
+    setColor((prevColor) =>
+      prevColor === "#FF69B4" ? "#1E90FF" : "#FF69B4"
+    );
   };
 
   return (
@@ -25,9 +16,7 @@ const UseStateExample: React.FC = () => {
         style={[styles.button, { backgroundColor: color }]}
         onPress={handleChangeColor}
       >
-        <Text style={styles.buttonText}>
-          Change color {counter} times
-        </Text>
+        <Text style={styles.buttonText}>Change Color</Text>
       </TouchableOpacity>
     </View>
   );
