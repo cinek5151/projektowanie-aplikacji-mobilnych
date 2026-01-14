@@ -24,6 +24,10 @@ const UseEffectExample: React.FC = () => {
 
   // Reset error information when moving to next question
 
+  useEffect(() => {
+  setCorrectAnswer(null);
+  setInput("");
+}, [currentQuestion]);
 
   // Timer effect
   useEffect(() => {
