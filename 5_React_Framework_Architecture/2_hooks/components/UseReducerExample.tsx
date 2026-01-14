@@ -3,10 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 function factorialize(num: number): number {
   if (num < 0) return -1;
-  else if (num === 0) return 1;
-  else {
-    return num * factorialize(num - 1);
-  }
+  if (num === 0) return 1;
+  return num * factorialize(num - 1);
 }
 
 const initialValue = 1;
@@ -17,7 +15,7 @@ type State = {
   result: number;
 };
 
-type Action = 
+type Action =
   | { type: "FACTORIAL" }
   | { type: "SQRT" }
   | { type: "ADD" }
@@ -26,27 +24,22 @@ type Action =
 const UseReducerExample: React.FC = () => {
   const [state, dispatch] = useReducer(
     (state: State, action: Action): State => {
-      if (action.type === "FACTORIAL") {
-        console.log("FACTORIAL action", action);
-        return { result: factorialize(state.result) };
-      }
+      switch (action.type) {
+        case "FACTORIAL":
+          return { result: factorialize(state.result) };
 
-      if (action.type === "SQRT") {
-        console.log("SQRT action", action);
-        return { result: Math.sqrt(state.result) };
-      }
+        case "SQRT":
+          return { result: Math.sqrt(state.result) };
 
-      if (action.type === "ADD") {
-        console.log("ADD action", action);
-        return { result: state.result + 1 };
-      }
+        case "ADD":
+          return { result: state.result + 1 };
 
-      if (action.type === "RESET") {
-        console.log("RESET action", action);
-        return init(action.payload);
-      }
+        case "RESET":
+          return init(action.payload);
 
-      return state;
+        default:
+          return state;
+      }
     },
     initialValue,
     init
@@ -55,38 +48,39 @@ const UseReducerExample: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>UseReducer Example</Text>
-      
+
       <View style={styles.resultContainer}>
         <Text style={styles.resultLabel}>Current Result:</Text>
         <Text style={styles.result}>{state.result}</Text>
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity 
-          style={[styles.button, styles.factorialButton]} 
+        <TouchableOpacity
+          style={[styles.button, styles.factorialButton]}
           onPress={() => dispatch({ type: "FACTORIAL" })}
         >
           <Text style={styles.buttonText}>Factorial (!)</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.button, styles.addButton]} 
+        <TouchableOpacity
+          style={[styles.button, styles.addButton]}
           onPress={() => dispatch({ type: "ADD" })}
         >
           <Text style={styles.buttonText}>Add 1 (+1)</Text>
         </TouchableOpacity>
 
-        {/* Fixed: Changed FACTORIAL to SQRT */}
-        <TouchableOpacity 
-          style={[styles.button, styles.sqrtButton]} 
+        <TouchableOpacity
+          style={[styles.button, styles.sqrtButton]}
           onPress={() => dispatch({ type: "SQRT" })}
         >
           <Text style={styles.buttonText}>Square Root (√)</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.button, styles.resetButton]} 
-          onPress={() => dispatch({ type: "RESET", payload: initialValue })}
+        <TouchableOpacity
+          style={[styles.button, styles.resetButton]}
+          onPress={() =>
+            dispatch({ type: "RESET", payload: initialValue })
+          }
         >
           <Text style={styles.buttonText}>Reset</Text>
         </TouchableOpacity>
@@ -97,7 +91,9 @@ const UseReducerExample: React.FC = () => {
         <Text style={styles.explanation}>• Factorial: Calculates n!</Text>
         <Text style={styles.explanation}>• Add 1: Increments by 1</Text>
         <Text style={styles.explanation}>• Square Root: Calculates √n</Text>
-        <Text style={styles.explanation}>• Reset: Returns to initial value (1)</Text>
+        <Text style={styles.explanation}>
+          • Reset: Returns to initial value (1)
+        </Text>
       </View>
     </View>
   );
